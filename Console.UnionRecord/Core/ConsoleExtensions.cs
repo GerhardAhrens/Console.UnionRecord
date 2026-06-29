@@ -18,6 +18,8 @@
 
 namespace System
 {
+    using System.Globalization;
+
     internal static class ConsoleExtensions
     {
         // Erstelle Extension für den Typ String
@@ -131,7 +133,7 @@ namespace System
                 {
                     Console.Write($"{frage} (j/n): ");
 
-                    string eingabe = Console.ReadLine()?.Trim().ToLower();
+                    string eingabe = Console.ReadLine()?.Trim().ToLower(CultureInfo.CurrentCulture);
 
                     switch (eingabe)
                     {
@@ -180,7 +182,7 @@ namespace System
                 {
                     Console.Write($"{frage} (j/n): ");
 
-                    string eingabe = Console.ReadLine()?.Trim().ToLower();
+                    string eingabe = Console.ReadLine()?.Trim().ToLower(CultureInfo.CurrentCulture);
 
                     switch (eingabe)
                     {
