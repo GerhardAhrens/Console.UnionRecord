@@ -20,6 +20,7 @@ namespace Console.UnionRecord
 {
     /* Imports from NET Framework */
     using System;
+    using System.Windows;
 
     public class Program
     {
@@ -34,6 +35,8 @@ namespace Console.UnionRecord
             CMenu mainMenu = new CMenu("Hauptmenü");
             mainMenu.AddItem("Einfaches generisches 'record'", MenuPoint1);
             mainMenu.AddItem("'record' mit mehreren generischen Typen", MenuPoint2);
+            mainMenu.AddItem("Alternative für einen Union 'record'", MenuPoint5);
+            mainMenu.AddItem("Bisherige Alternative für einen ValueObject (komplexer Art)", MenuPoint6);
             mainMenu.AddItem("Beenden", () => ApplicationExit());
             mainMenu.Show();
         }
@@ -67,11 +70,46 @@ namespace Console.UnionRecord
             Console.Wait();
         }
 
-        private static void UnterMenuPoint(string param)
+        private static void MenuPoint5()
         {
             Console.Clear();
 
-            Console.Wait(param);
+            Id id1 = 42;
+            Id id2 = Guid.NewGuid();
+            /* Id id3 = "Test"; => Exception */
+
+            Id id3 = id1;
+
+            Console.Success($"Id = {id1.AsInt()}");
+            Console.Success($"Id = {id2.AsGuid()}");
+            Console.Success($"Id = {id3.AsInt()}");
+
+            Console.Wait();
+        }
+
+        private static void MenuPoint6()
+        {
+            Console.Clear();
+
+            Console.WriteLine("Mit int und Guid");
+            ID id1 = 42;
+            ID id2 = Guid.NewGuid();
+            ID id3 = id1;
+
+            Console.Success($"Id = {id1.Value}");
+            Console.Success($"Id = {id2.Value}");
+            Console.Success($"Id = {id3.Value}");
+
+            Console.WriteLine("Mit string");
+            ID<string> id4 = "1";
+            ID<string> id5 = "2";
+            ID<string> id6 = id4;
+
+            Console.Success($"Id = {id4.Value}");
+            Console.Success($"Id = {id5.Value}");
+            Console.Success($"Id = {id6.Value}");
+
+            Console.Wait();
         }
     }
 

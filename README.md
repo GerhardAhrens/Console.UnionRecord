@@ -320,6 +320,44 @@ Eine einfache Faustregel lautet:
 
 Dadurch erhältst du weniger Boilerplate-Code, eine zuverlässige Wertgleichheit und komfortable Features wie with-Ausdrücke, ohne zusätzliche Implementierungen für Equals(), GetHashCode() oder ToString() schreiben zu müssen.
 
+# Bisherige Lösung für eine ValueObject
+## Zum Beispiel für eine ID
+Hier sind alle notwendigen Methoden erstellt worden, was zu einem gewissen Nachteil im Aufwand führt. Dafür können aber Funktionalitäten besser auf den Bedarf zugeschnitten werden.
+```csharp
+Console.WriteLine("Mit int und Guid");
+ID id1 = 42;
+ID id2 = Guid.NewGuid();
+ID id3 = id1;
+
+Console.Success($"Id = {id1.Value}");
+Console.Success($"Id = {id2.Value}");
+Console.Success($"Id = {id3.Value}");
+
+Console.WriteLine("Mit string");
+ID<string> id4 = "1";
+ID<string> id5 = "2";
+ID<string> id6 = id4;
+
+Console.Success($"Id = {id4.Value}");
+Console.Success($"Id = {id5.Value}");
+Console.Success($"Id = {id6.Value}");
+```
+Hier gibt es eine nicht generische und eine generische Klasse vom Typ `ID`
+
+```csharp
+public sealed class ID : ValueObjectBase
+{
+    ...
+}
+```
+
+```csharp
+public sealed class ID<T> : ValueObjectBase
+{
+    ...
+}
+```
+
 # Versionshistorie
 ![Version](https://img.shields.io/badge/Version-1.0.2026.0-yellow.svg)
 - Migration auf NET 10
